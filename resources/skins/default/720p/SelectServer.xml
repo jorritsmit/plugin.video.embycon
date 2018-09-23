@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="3302" type="dialog">
+	<defaultcontrol always="true">3000</defaultcontrol>
+    <zorder>2</zorder>
+	<coordinates>
+		<system>1</system>
+		<left>320</left>
+		<top>200</top>
+	</coordinates>
+    <controls>
+
+		<control type="image" id="3010">
+			<left>0</left>
+			<top>0</top>
+			<width>640</width>
+			<height>320</height>
+			<texture border="40">bg.png</texture>
+		</control>
+
+
+        <control type="button">
+            <id>3010</id>
+            <left>400</left>
+            <top>10</top>
+            <width>200</width>
+			<height>45</height>
+            <align>center</align>
+            <label>Delete</label>
+            <textoffsetx>20</textoffsetx>
+            <onleft>3000</onleft>
+            <texturenofocus border="1" colordiffuse="ff161616">white.png</texturenofocus>
+            <texturefocus border="1" colordiffuse="ff525252">white.png</texturefocus>
+        </control>
+
+
+        <control type="list" id="3000">
+            <onright>3010</onright>
+            <left>10</left>
+            <top>10</top>
+            <width>360</width>
+            <height>300</height>
+            <!--<height max="780">auto</height>-->
+            <itemlayout width="360" height="50">
+                <control type="image">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>360</width>
+                    <height>45</height>
+                    <texture border="1" colordiffuse="ff161616">white.png</texture>
+                </control>
+                <control type="textbox">
+                    <width>340</width>
+                    <left>10</left>
+                    <top>5</top>
+                    <height>45</height>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>99FFFFFF</textcolor>
+                    <font>font14</font>
+                    <align>left</align>
+                </control>
+            </itemlayout>
+            <focusedlayout width="360" height="50">
+                <control type="image">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>360</width>
+                    <height>45</height>
+                    <texture border="1" colordiffuse="ff525252">white.png</texture>
+                </control>
+                <control type="textbox">
+                    <width>340</width>
+                    <left>10</left>
+                    <top>5</top>
+                    <height>45</height>
+                    <label>$INFO[ListItem.Label]</label>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <font>font14</font>
+                    <align>left</align>
+                </control>
+            </focusedlayout>
+        </control>
+
+	</controls>
+</window>
