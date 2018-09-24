@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="3302" type="dialog">
+	<defaultcontrol always="true">3010</defaultcontrol>
+    <zorder>2</zorder>
+	<coordinates>
+		<system>1</system>
+		<left>320</left>
+		<top>200</top>
+	</coordinates>
+    <controls>
+
+		<control type="image" id="3010">
+			<left>0</left>
+			<top>0</top>
+			<width>640</width>
+			<height>320</height>
+			<texture border="40">bg.png</texture>
+		</control>
+
+        <control type="textbox">
+            <width>600</width>
+            <left>10</left>
+            <top>10</top>
+            <height>45</height>
+            <label>Emby Server Info</label>
+            <textcolor>FFFFFFFF</textcolor>
+            <font>font14</font>
+            <align>left</align>
+        </control>
+
+        <control type="button">
+            <id>3010</id>
+            <left>400</left>
+            <top>50</top>
+            <width>200</width>
+			<height>45</height>
+            <align>center</align>
+            <label>Update</label>
+            <textoffsetx>20</textoffsetx>
+            <onleft>3000</onleft>
+            <ondown>3011</ondown>
+            <texturenofocus border="1" colordiffuse="ff161616">white.png</texturenofocus>
+            <texturefocus border="1" colordiffuse="ff525252">white.png</texturefocus>
+        </control>
+
+	</controls>
+</window>

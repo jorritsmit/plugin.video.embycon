@@ -14,7 +14,7 @@ from kodi_utils import HomeWindow
 from downloadutils import DownloadUtils
 from simple_logging import SimpleLogging
 from translation import i18n
-from select_server import SelectServer
+from server_select import ServerSelect
 
 log = SimpleLogging(__name__)
 
@@ -121,7 +121,7 @@ def checkServer(force=False, change_user=False, notify=False):
 
         path = settings.getAddonInfo('path')
         path = xbmc.translatePath(path)
-        action_menu = SelectServer("SelectServer.xml", path, "default", "720p")
+        action_menu = ServerSelect("ServerSelect.xml", path, "default", "720p")
         action_menu.setActionItems(action_items)
         action_menu.doModal()
 
