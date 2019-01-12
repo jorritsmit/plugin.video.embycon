@@ -19,6 +19,7 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
 
 """
 
+from __future__ import absolute_import, division, unicode_literals
 
 import socket
 
@@ -366,13 +367,13 @@ class WebSocket(object):
     We can connect to the websocket server and send/recieve data.
     The following example is a echo client.
 
-    >>> import websocket
-    >>> ws = websocket.WebSocket()
-    >>> ws.connect("ws://echo.websocket.org")
-    >>> ws.send("Hello, Server")
-    >>> ws.recv()
+    #import websocket
+    #ws = websocket.WebSocket()
+    #ws.connect("ws://echo.websocket.org")
+    #ws.send("Hello, Server")
+    #ws.recv()
     'Hello, Server'
-    >>> ws.close()
+    #ws.close()
 
     get_mask_key: a callable to produce new mask keys, see the set_mask_key
       function's docstring for more details

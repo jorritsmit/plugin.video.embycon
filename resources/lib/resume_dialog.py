@@ -1,5 +1,7 @@
 # Gnu General Public License - see LICENSE.TXT
 
+from __future__ import absolute_import, division, unicode_literals
+
 import xbmcgui
 
 from .simple_logging import SimpleLogging

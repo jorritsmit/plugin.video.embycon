@@ -2,9 +2,11 @@
 
 #################################################################################################
 
+from __future__ import absolute_import, division, unicode_literals
+
 import json
 import threading
-import websocket
+from . import websocket
 
 import xbmc
 import xbmcgui
@@ -16,6 +18,7 @@ from . import downloadutils
 from .json_rpc import json_rpc
 
 log = SimpleLogging(__name__)
+
 
 class WebSocketClient(threading.Thread):
 

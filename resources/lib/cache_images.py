@@ -1,6 +1,8 @@
 # coding=utf-8
 # Gnu General Public License - see LICENSE.TXT
 
+from __future__ import absolute_import, division, unicode_literals
+
 import xbmcgui
 import xbmcplugin
 import xbmc

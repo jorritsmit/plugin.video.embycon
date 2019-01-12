@@ -1,5 +1,7 @@
 # Gnu General Public License - see LICENSE.TXT
 
+from __future__ import absolute_import, division, unicode_literals
+
 import xbmc
 import xbmcaddon
 from .json_rpc import json_rpc
@@ -24,26 +26,15 @@ class SimpleLogging():
         return "LoggingEnabled: " + str(self.enable_logging)
 
     def info(self, fmt, *args, **kwargs):
-        log_line = self.name + "|INFO|" + self.log_line(fmt, *args)
-        xbmc.log(log_line, level=xbmc.LOGNOTICE)
+        log_line = self.name + "|INFO|" + fmt.format(*args)
+        xbmc.log(log_line.encode("UTF-8"), level=xbmc.LOGNOTICE)
 
     def error(self, fmt, *args, **kwargs):
-        log_line = self.name + "|ERROR|" + self.log_line(fmt, *args)
-        xbmc.log(log_line, level=xbmc.LOGERROR)
+        log_line = self.name + "|ERROR|" + fmt.format(*args)
+        xbmc.log(log_line.encode("UTF-8"), level=xbmc.LOGERROR)
 
     def debug(self, fmt, *args, **kwargs):
         if self.enable_logging:
-            log_line = self.name + "|DEBUG|" + self.log_line(fmt, *args)
-            xbmc.log(log_line, level=xbmc.LOGDEBUG)
+            log_line = self.name + "|DEBUG|" + fmt.format(*args)
+            xbmc.log(log_line.encode("UTF-8"), level=xbmc.LOGDEBUG)
 
-    @staticmethod
-    def log_line(fmt, *args):
-        new_args = []
-        # convert any unicode to utf-8 strings
-        for arg in args:
-            if isinstance(arg, unicode):
-                new_args.append(arg.encode("utf-8"))
-            else:
-                new_args.append(arg)
-        log_line = fmt.format(*new_args)
-        return log_line

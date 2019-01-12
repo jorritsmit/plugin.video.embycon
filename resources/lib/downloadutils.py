@@ -1,5 +1,7 @@
 # Gnu General Public License - see LICENSE.TXT
 
+from __future__ import absolute_import, division, unicode_literals
+
 import xbmc
 import xbmcgui
 import xbmcaddon
@@ -613,25 +615,29 @@ class DownloadUtils():
                 conn.request(method=method, url=urlPath, headers=head)
 
             data = conn.getresponse()
-            log.debug("GET URL HEADERS: {0}", data.getheaders())
+            log.debug("response_code : {0}", data.status)
+            log.debug("response_headers : {0}", data.getheaders())
 
             if int(data.status) == 200:
-                retData = data.read()
-                contentType = data.getheader('content-encoding')
-                log.debug("Data Len Before: {0}", len(retData))
-                if (contentType == "gzip"):
-                    retData = StringIO.StringIO(retData)
-                    gzipper = gzip.GzipFile(fileobj=retData)
+                raw_return_data = data.read()
+                content_type = data.getheader('content-encoding')
+
+                if content_type == "gzip":
+                    log.debug("gzip_len_before: {0}", len(raw_return_data))
+                    raw_return_data = StringIO.StringIO(raw_return_data)
+                    gzipper = gzip.GzipFile(fileobj=raw_return_data)
                     return_data = gzipper.read()
+                    log.debug("gzip_len_after: {0}", len(return_data))
                 else:
-                    return_data = retData
+                    return_data = raw_return_data
+
                 if headers is not None and isinstance(headers, dict):
                     headers.update(data.getheaders())
-                log.debug("Data Len After: {0}", len(return_data))
-                log.debug("====== 200 returned =======")
-                log.debug("Content-Type: {0}", contentType)
-                log.debug("{0}", return_data)
-                log.debug("====== 200 finished ======")
+
+                return_data = return_data.decode("UTF-8")
+
+                log.debug("content_type: {0}", content_type)
+                log.debug("return_data : {0}", return_data)
 
             elif int(data.status) >= 400:
 
@@ -651,12 +657,12 @@ class DownloadUtils():
                                                   string_load(30200) % str(data.reason),
                                                   icon="special://home/addons/plugin.video.embycon/icon.png")
 
-        except Exception as msg:
-            log.error("Unable to connect to {0} : {1}", server, msg)
-            if suppress is False:
-                xbmcgui.Dialog().notification(string_load(30316),
-                                              str(msg),
-                                              icon="special://home/addons/plugin.video.embycon/icon.png")
+        #except Exception as msg:
+        #    log.error("Unable to connect to {0} : {1}", server, msg)
+        #    if suppress is False:
+        #        xbmcgui.Dialog().notification(string_load(30316),
+        #                                      str(msg),
+        #                                      icon="special://home/addons/plugin.video.embycon/icon.png")
 
         finally:
             try:
