@@ -16,6 +16,7 @@ from .downloadutils import DownloadUtils, save_user_details, load_user_details
 from .simple_logging import SimpleLogging
 from .translation import string_load
 from .utils import datetime_from_string
+from .server_select import ServerSelect
 
 log = SimpleLogging(__name__)
 
@@ -85,6 +86,23 @@ def checkServer(force=False, change_user=False, notify=False):
 
     # if the server is not set then try to detect it
     if server_url == "":
+
+        # test the dialog
+        action_items = []
+        li = xbmcgui.ListItem("Server 01")
+        li.setProperty('menu_id', 'server_01')
+        action_items.append(li)
+
+        li = xbmcgui.ListItem("Server 02")
+        li.setProperty('menu_id', 'server_02')
+        action_items.append(li)
+
+        path = settings.getAddonInfo('path')
+        path = xbmc.translatePath(path)
+        action_menu = ServerSelect("ServerSelect.xml", path, "default", "720p")
+        action_menu.setActionItems(action_items)
+        action_menu.doModal()
+
 
         # scan for local server
         server_info = getServerDetails()
