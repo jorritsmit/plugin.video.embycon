@@ -3,23 +3,24 @@ import xbmcaddon
 import xbmcgui
 import xbmcplugin
 import xbmc
-import re
-import encodings
+
 import string
 import random
 import urllib
 import json
-import httplib
-import base64
-import sys
 import binascii
+import time
+from datetime import datetime
+import _strptime
+import calendar
+import re
 
-from downloadutils import DownloadUtils
-from simple_logging import SimpleLogging
-from clientinfo import ClientInformation
-from json_rpc import json_rpc
-from translation import i18n
-from datamanager import DataManager
+from .downloadutils import DownloadUtils
+from .simple_logging import SimpleLogging
+from .clientinfo import ClientInformation
+
+# hack to get datetime strptime loaded
+throwaway = time.strptime('20110101','%Y%m%d')
 
 # define our global download utils
 downloadUtils = DownloadUtils()
@@ -30,9 +31,15 @@ log = SimpleLogging(__name__)
 class PlayUtils():
     def getPlayUrl(self, id, media_source, force_transcode, play_session_id):
         log.debug("getPlayUrl")
+
         addonSettings = xbmcaddon.Addon()
         playback_type = addonSettings.getSetting("playback_type")
         server = downloadUtils.getServer()
+        use_https = addonSettings.getSetting('use_https') == 'true'
+        log.debug("use_https: {0}", use_https)
+        verify_cert = addonSettings.getSetting('verify_cert') == 'true'
+        log.debug("verify_cert: {0}", verify_cert)
+
         log.debug("playback_type: {0}", playback_type)
         if force_transcode:
             log.debug("playback_type: FORCED_TRANSCODE")
@@ -84,9 +91,13 @@ class PlayUtils():
                        "&VideoBitrate=%s" +
                        "&maxWidth=%s")
             playurl = playurl % (server, id, media_source_id, play_session_id, deviceId, bitrate, playback_max_width)
+
             if playback_video_force_8:
-                playurl = playurl + "&MaxVideoBitDepth=8"
-            playurl = playurl + "&api_key=" + user_token
+                playurl += "&MaxVideoBitDepth=8"
+            playurl += "&api_key=" + user_token
+
+            if use_https and not verify_cert:
+                playurl += "|verifypeer=false"
 
         # do direct path playback
         elif playback_type == "0":
@@ -117,7 +128,10 @@ class PlayUtils():
                        "&MediaSourceId=%s")
             playurl = playurl % (server, id, play_session_id, media_source_id)
             user_token = downloadUtils.authenticate()
-            playurl = playurl + "&api_key=" + user_token
+            playurl += "&api_key=" + user_token
+
+            if use_https and not verify_cert:
+                playurl += "|verifypeer=false"
 
         log.debug("Playback URL: {0}", playurl)
         return playurl, playback_type
@@ -284,3 +298,18 @@ def send_event_notification(method, data):
     log.debug("Sending notification event data: {0}", command)
     xbmc.executebuiltin(command)
 
+
+def datetime_from_string(time_string):
+
+    if time_string[-1:] == "Z":
+        time_string = re.sub("[0-9]{1}Z", " UTC", time_string)
+    elif time_string[-6:] == "+00:00":
+        time_string = re.sub("[0-9]{1}\+00:00", " UTC", time_string)
+    log.debug("New Time String : {0}", time_string)
+
+    start_time = time.strptime(time_string, "%Y-%m-%dT%H:%M:%S.%f %Z")
+    dt = datetime(*(start_time[0:6]))
+    timestamp = calendar.timegm(dt.timetuple())
+    local_dt = datetime.fromtimestamp(timestamp)
+    local_dt.replace(microsecond=dt.microsecond)
+    return local_dt

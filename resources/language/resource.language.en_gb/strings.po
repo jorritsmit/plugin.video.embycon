@@ -58,10 +58,6 @@ msgctxt "#30014"
 msgid "Emby"
 msgstr ""
 
-msgctxt "#30015"
-msgid "Network"
-msgstr ""
-
 msgctxt "#30016"
 msgid "Device Name"
 msgstr ""
@@ -106,10 +102,6 @@ msgctxt "#30026"
 msgid "Widget item select action"
 msgstr ""
 
-msgctxt "#30027"
-msgid "Show watched in recently added"
-msgstr ""
-
 msgctxt "#30044"
 msgid "Incorrect Username/Password"
 msgstr ""
@@ -126,18 +118,6 @@ msgctxt "#30053"
 msgid "Waiting for server to delete"
 msgstr ""
 
-msgctxt "#30060"
-msgid "%s (Secured)"
-msgstr ""
-
-msgctxt "#30061"
-msgid "%s (User-defined)"
-msgstr ""
-
-msgctxt "#30062"
-msgid "Hidden user (User-input)"
-msgstr ""
-
 msgctxt "#30063"
 msgid "N/A"
 msgstr ""
@@ -152,6 +132,10 @@ msgstr ""
 
 msgctxt "#30110"
 msgid "Interface"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Services"
 msgstr ""
 
 msgctxt "#30112"
@@ -190,10 +174,6 @@ msgctxt "#30126"
 msgid "Processing Item : "
 msgstr ""
 
-msgctxt "#30128"
-msgid "Play Error"
-msgstr ""
-
 msgctxt "#30129"
 msgid "Default"
 msgstr ""
@@ -202,24 +182,8 @@ msgctxt "#30135"
 msgid "Error"
 msgstr ""
 
-msgctxt "#30136"
-msgid "EmbyCon service is not running"
-msgstr ""
-
-msgctxt "#30137"
-msgid "Please restart Kodi"
-msgstr ""
-
 msgctxt "#30139"
 msgid "No Media Type Set"
-msgstr ""
-
-msgctxt "#30150"
-msgid "Skin does not support setting views"
-msgstr ""
-
-msgctxt "#30151"
-msgid "Select item action (Requires Restart)"
 msgstr ""
 
 msgctxt "#30163"
@@ -231,11 +195,7 @@ msgid "Select Server"
 msgstr ""
 
 msgctxt "#30167"
-msgid "Server Detection Succeeded"
-msgstr ""
-
-msgctxt "#30168"
-msgid "Found server"
+msgid "Selected Server Address"
 msgstr ""
 
 msgctxt "#30169"
@@ -264,22 +224,6 @@ msgstr ""
 
 msgctxt "#30201"
 msgid "Unable to connect to server"
-msgstr ""
-
-msgctxt "#30202"
-msgid "Error Extracting Server host:port"
-msgstr ""
-
-msgctxt "#30203"
-msgid "Error in ArtworkRotationThread"
-msgstr ""
-
-msgctxt "#30204"
-msgid "Unable to connect to host"
-msgstr ""
-
-msgctxt "#30205"
-msgid "Error in LoadMenuOptionsThread"
 msgstr ""
 
 msgctxt "#30206"
@@ -322,6 +266,10 @@ msgctxt "#30215"
 msgid "On Playback Stop (100% = disabled)"
 msgstr ""
 
+msgctxt "#30216"
+msgid "Item Details"
+msgstr ""
+
 msgctxt "#30217"
 msgid "Prompt to delete episode after %"
 msgstr ""
@@ -338,32 +286,24 @@ msgctxt "#30220"
 msgid "Prompt to delete movie after %"
 msgstr ""
 
-msgctxt "#30221"
-msgid "On Playback Stop"
+msgctxt "#30222"
+msgid "Item Layout"
+msgstr ""
+
+msgctxt "#30223"
+msgid "Page Size and Filtering"
+msgstr ""
+
+msgctxt "#30224"
+msgid "Interaction"
 msgstr ""
 
 msgctxt "#30229"
 msgid "TV Shows"
 msgstr ""
 
-msgctxt "#30230"
-msgid "Default View"
-msgstr ""
-
 msgctxt "#30231"
 msgid "Movies"
-msgstr ""
-
-msgctxt "#30232"
-msgid "BoxSets"
-msgstr ""
-
-msgctxt "#30233"
-msgid "Series"
-msgstr ""
-
-msgctxt "#30234"
-msgid "Seasons"
 msgstr ""
 
 msgctxt "#30235"
@@ -379,11 +319,7 @@ msgid "Start from beginning"
 msgstr ""
 
 msgctxt "#30238"
-msgid "Playback Overrides"
-msgstr ""
-
-msgctxt "#30245"
-msgid "Next page"
+msgid "Playback Options"
 msgstr ""
 
 msgctxt "#30246"
@@ -391,15 +327,7 @@ msgid "Search"
 msgstr ""
 
 msgctxt "#30247"
-msgid "Widgets"
-msgstr ""
-
-msgctxt "#30248"
-msgid "Emby - Movies"
-msgstr ""
-
-msgctxt "#30249"
-msgid "Emby - TV Shows"
+msgid "Custom Widget Content"
 msgstr ""
 
 msgctxt "#30250"
@@ -423,11 +351,11 @@ msgid "Show Settings"
 msgstr ""
 
 msgctxt "#30255"
-msgid "Movies (Year)"
+msgid "TV Show (A-Z)"
 msgstr ""
 
 msgctxt "#30256"
-msgid "Movies - All"
+msgid "Movies"
 msgstr ""
 
 msgctxt "#30257"
@@ -447,7 +375,7 @@ msgid "BoxSets"
 msgstr ""
 
 msgctxt "#30261"
-msgid "TV Shows - All"
+msgid "TV Shows"
 msgstr ""
 
 msgctxt "#30262"
@@ -467,7 +395,7 @@ msgid "Episodes - Next Up"
 msgstr ""
 
 msgctxt "#30266"
-msgid "Upcoming TV"
+msgid "Movie (Pages)"
 msgstr ""
 
 msgctxt "#30267"
@@ -483,19 +411,19 @@ msgid "Movies - Random"
 msgstr ""
 
 msgctxt "#30270"
-msgid "Mark watched"
+msgid "Mark Watched"
 msgstr ""
 
 msgctxt "#30271"
-msgid "Mark unwatched"
+msgid "Mark Unwatched"
 msgstr ""
 
 msgctxt "#30272"
-msgid "Set favourite"
+msgid "Set Favourite"
 msgstr ""
 
 msgctxt "#30273"
-msgid "Unset favourite"
+msgid "Unset Favourite"
 msgstr ""
 
 msgctxt "#30274"
@@ -527,11 +455,11 @@ msgid "Missing Title"
 msgstr ""
 
 msgctxt "#30281"
-msgid "Your skin %s is currently not supported"
+msgid "Refresh Images"
 msgstr ""
 
 msgctxt "#30282"
-msgid "No Emby servers on your local network detected"
+msgid "No Emby servers detected on your local network."
 msgstr ""
 
 msgctxt "#30283"
@@ -583,7 +511,7 @@ msgid "Notice"
 msgstr ""
 
 msgctxt "#30295"
-msgid "To use this feature you need to enabled HTTP control in Kodi"
+msgid "To use this feature you need HTTP control enabled"
 msgstr ""
 
 msgctxt "#30296"
@@ -591,35 +519,35 @@ msgid "Delete"
 msgstr ""
 
 msgctxt "#30297"
-msgid "Delete all existing textures?"
+msgid "Delete unused images?"
 msgstr ""
 
 msgctxt "#30298"
-msgid "Deleting Textures"
+msgid "Deleting Kodi Images"
 msgstr ""
 
 msgctxt "#30299"
-msgid "Cache Textures"
+msgid "Cache Images"
 msgstr ""
 
 msgctxt "#30300"
-msgid "Cache all Emby media images as local Kodi textures?"
+msgid "Cache all Emby images as local Kodi images?"
 msgstr ""
 
 msgctxt "#30301"
-msgid "Caching Textures"
+msgid "Caching Images"
 msgstr ""
 
 msgctxt "#30302"
-msgid "Existing Textures: "
+msgid "Existing images : "
 msgstr ""
 
 msgctxt "#30303"
-msgid "Missing Textures: "
+msgid "Missing Emby images : "
 msgstr ""
 
 msgctxt "#30304"
-msgid "Loaded Textures: "
+msgid "Cached Emby images : "
 msgstr ""
 
 msgctxt "#30305"
@@ -647,11 +575,11 @@ msgid "Enable Emby remote control"
 msgstr ""
 
 msgctxt "#30311"
-msgid "EmbyCon encountered an error!"
+msgid "Library - "
 msgstr ""
 
 msgctxt "#30312"
-msgid "Do you want to send this error to the devs?"
+msgid "All - "
 msgstr ""
 
 msgctxt "#30313"
@@ -675,27 +603,15 @@ msgid "Play All"
 msgstr ""
 
 msgctxt "#30318"
-msgid "Music - All Albums"
-msgstr ""
-
-msgctxt "#30319"
-msgid "Music - All Album Artists"
+msgid "Music - Albums"
 msgstr ""
 
 msgctxt "#30320"
 msgid " - Albums"
 msgstr ""
 
-msgctxt "#30321"
-msgid " - Album Artists"
-msgstr ""
-
 msgctxt "#30322"
 msgid "Auto Resume"
-msgstr ""
-
-msgctxt "#30323"
-msgid "Check for new versions"
 msgstr ""
 
 msgctxt "#30324"
@@ -706,12 +622,8 @@ msgctxt "#30325"
 msgid " - Genres"
 msgstr ""
 
-msgctxt "#30326"
-msgid "[EmbyCon Menu]"
-msgstr ""
-
 msgctxt "#30327"
-msgid "View Season"
+msgid "Go To Season"
 msgstr ""
 
 msgctxt "#30328"
@@ -730,12 +642,16 @@ msgctxt "#30331"
 msgid "Movies per page"
 msgstr ""
 
+msgctxt "#30332"
+msgid "Stop media playback on screensaver activation"
+msgstr ""
+
 msgctxt "#30333"
 msgid "Cache artwork in the background"
 msgstr ""
 
 msgctxt "#30334"
-msgid "Use EmbyCon menu (requires restart)"
+msgid "Use EmbyCon context menu"
 msgstr ""
 
 msgctxt "#30335"
@@ -760,4 +676,200 @@ msgstr ""
 
 msgctxt "#30340"
 msgid "Group movies into collections"
+msgstr ""
+
+msgctxt "#30341"
+msgid "Background image update interval (0 = disabled)"
+msgstr ""
+
+msgctxt "#30342"
+msgid "New content check interval (0 = disabled)"
+msgstr ""
+
+msgctxt "#30343"
+msgid "Changes Require Kodi Restart"
+msgstr ""
+
+msgctxt "#30344"
+msgid "Number of images removed from cache : %s"
+msgstr ""
+
+msgctxt "#30345"
+msgid "Cache server requests"
+msgstr ""
+
+msgctxt "#30346"
+msgid "Deleteing Cached Images"
+msgstr ""
+
+msgctxt "#30347"
+msgid "Getting Existing Images"
+msgstr ""
+
+msgctxt "#30348"
+msgid "Add user ratings"
+msgstr ""
+
+msgctxt "#30349"
+msgid " - Recently Played"
+msgstr ""
+
+msgctxt "#30350"
+msgid "Music - Recently Added"
+msgstr ""
+
+msgctxt "#30351"
+msgid "Music - Recently Played"
+msgstr ""
+
+msgctxt "#30352"
+msgid "Music - Frequently Played"
+msgstr ""
+
+msgctxt "#30319"
+msgid "Music - All Album Artists"
+msgstr ""
+
+msgctxt "#30321"
+msgid " - Album Artists"
+msgstr ""
+
+msgctxt "#30353"
+msgid " - Frequently Played"
+msgstr ""
+
+msgctxt "#30354"
+msgid "Goto Series"
+msgstr ""
+
+msgctxt "#30355"
+msgid "Kodi Settings->Services->Allow remote control via HTTP"
+msgstr ""
+
+msgctxt "#30356"
+msgid ""Loading existing image list""
+msgstr ""
+
+msgctxt "#30357"
+msgid "Processing existing image list"
+msgstr ""
+
+msgctxt "#30358"
+msgid "Retreiving remote image list"
+msgstr ""
+
+msgctxt "#30359"
+msgid "Building full image list"
+msgstr ""
+
+msgctxt "#30360"
+msgid " - Channels"
+msgstr ""
+
+msgctxt "#30361"
+msgid " - Programs"
+msgstr ""
+
+msgctxt "#30362"
+msgid " - Recordings"
+msgstr ""
+
+msgctxt "#30363"
+msgid "Save Password?"
+msgstr ""
+
+msgctxt "#30364"
+msgid "Do you want to save the password?"
+msgstr ""
+
+msgctxt "#30365"
+msgid "Manual Login"
+msgstr ""
+
+msgctxt "#30366"
+msgid "Manually enter user details"
+msgstr ""
+
+msgctxt "#30367"
+msgid "Allow fast user switching password saving"
+msgstr ""
+
+msgctxt "#30368"
+msgid "Clear Password?"
+msgstr ""
+
+msgctxt "#30369"
+msgid "Do you want to clear your saved password?"
+msgstr ""
+
+msgctxt "#30370"
+msgid "Do you want to manually enter a server url?"
+msgstr ""
+
+msgctxt "#30371"
+msgid "The server url you entered is not valid, do you want to try again?"
+msgstr ""
+
+msgctxt "#30372"
+msgid "Server URL"
+msgstr ""
+
+msgctxt "#30373"
+msgid "Scanning for local servers"
+msgstr ""
+
+msgctxt "#30374"
+msgid "Sending request"
+msgstr ""
+
+msgctxt "#30375"
+msgid "Receiving data packet: %s"
+msgstr ""
+
+msgctxt "#30376"
+msgid "Checking server url"
+msgstr ""
+
+msgctxt "#30377"
+msgid "Sending request"
+msgstr ""
+
+msgctxt "#30378"
+msgid "Persist user details"
+msgstr ""
+
+msgctxt "#30379"
+msgid "External Subtitle Prompt"
+msgstr ""
+
+msgctxt "#30380"
+msgid "Never"
+msgstr ""
+
+msgctxt "#30381"
+msgid "More than one"
+msgstr ""
+
+msgctxt "#30382"
+msgid "Always"
+msgstr ""
+
+msgctxt "#30383"
+msgid "System - "
+msgstr ""
+
+msgctxt "#30384"
+msgid "Random movies refresh interval (0 = disabled)"
+msgstr ""
+
+msgctxt "#30385"
+msgid "Existing images before delete : "
+msgstr ""
+
+msgctxt "#30386"
+msgid "Unused Emby images : "
+msgstr ""
+
+msgctxt "#30387"
+msgid "Unused images removed : "
 msgstr ""

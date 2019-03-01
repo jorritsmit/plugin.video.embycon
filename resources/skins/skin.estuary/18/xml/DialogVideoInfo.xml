@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol always="true">8</defaultcontrol>
+	<defaultcontrol always="true">5000</defaultcontrol>
 	<onload>SetProperty(infobackground,$ESCINFO[ListItem.Art(fanart)],home)</onload>
 	<onunload>ClearProperty(infobackground,home)</onunload>
 	<controls>
@@ -250,11 +250,15 @@
 					<height>370</height>
 					<onleft>50</onleft>
 					<onright>50</onright>
+					<!--
 					<onup condition="System.hasAddon(script.extendedinfo) + Control.HasFocus(50)">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[Container(50).ListItem.Label])</onup>
 					<onup condition="!System.hasAddon(script.extendedinfo)">InstallAddon(script.extendedinfo)</onup>
+					-->
 					<ondown>140</ondown>
 					<scrolltime>200</scrolltime>
 					<orientation>horizontal</orientation>
+					<onclick>close</onclick>
+					<onclick>ActivateWindow(Videos,plugin://plugin.video.embycon/?mode=NEW_SEARCH_PERSON&amp;person_id=$INFO[ListItem.Property(id)],return)</onclick>
 					<itemlayout height="317" width="245">
 						<control type="group">
 							<top>10</top>
@@ -364,7 +368,6 @@
 								<width>232</width>
 								<height>285</height>
 								<texture border="8" colordiffuse="button_focus">buttons/thumbnail_focused.png</texture>
-								<visible>Control.HasFocus(50)</visible>
 							</control>
 						</control>
 					</focusedlayout>
@@ -384,10 +387,21 @@
 					<align>center</align>
 					<orientation>horizontal</orientation>
 					<scrolltime tween="quadratic">200</scrolltime>
-					<include content="InfoDialogButton">
+					<include content="InfoDialogToggleButton">
 						<param name="id" value="8" />
-						<param name="icon" value="icons/infodialogs/play.png" />
-						<param name="label" value="$LOCALIZE[208]" />
+						<param name="icon_on" value="icons/filemanager.png" />
+						<param name="icon_off" value="icons/infodialogs/play.png" />
+						<param name="selected" value="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)" />
+						<param name="label" value="$VAR[VideoInfoPlayButtonLabelVar]" />
+						<param name="visible" value="!String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.DBType,season) + !String.IsEqual(ListItem.DBType,set) + String.StartsWith(ListItem.Path,plugin://plugin.video.embycon)" />
+					</include>
+					<include content="InfoDialogButton">
+						<param name="id" value="3124" />
+						<param name="icon" value="icons/filemanager.png" />
+						<param name="label" value="Browse" />
+						<param name="onclick_1" value="Dialog.Close(MovieInformation)" />
+						<param name="onclick_2" value="ActivateWindow(Videos, $INFO[ListItem.FileNameAndPath], return)" />
+						<param name="visible" value="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,set)] + String.StartsWith(ListItem.Path,plugin://plugin.video.embycon)" />
 					</include>
 					<include content="InfoDialogButton">
 						<param name="id" value="11" />
@@ -406,7 +420,8 @@
 					<include content="InfoDialogButton">
 						<param name="id" value="441" />
 						<param name="icon" value="icons/infodialogs/cinema.png" />
-						<param name="onclick_1" value="RunScript(script.cinemavision,dbtype=$INFO[ListItem.DBType],dbid=$INFO[ListItem.DBID])" />
+						<param name="onclick_1" value="Dialog.Close(MovieInformation)" />
+						<param name="onclick_2" value="RunScript(script.cinemavision,experience)" />
 						<param name="label" value="$LOCALIZE[31003]" />
 						<param name="visible" value="System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]" />
 					</include>
@@ -504,7 +519,7 @@
 				<textcolor>99FFFFFF</textcolor>
 				<shadowcolor>text_shadow</shadowcolor>
 				<haspath>true</haspath>
-				<label>$INFO[ListItem.FileNameANdPath]</label>
+				<label>$VAR[VideoInfoBottomLabelVar]</label>
 				<visible>Control.HasFocus(6)</visible>
 				<animation effect="fade" start="0" end="100" time="300" delay="300">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
@@ -566,5 +581,6 @@
 				</control>
 			</control>
 		</control>
+		<include condition="Skin.HasSetting(touchmode)">TouchBackButton</include>
 	</controls>
 </window>
