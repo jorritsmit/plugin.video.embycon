@@ -14,7 +14,7 @@ import xbmcgui
 import xbmc
 
 from .kodi_utils import HomeWindow
-from .downloadutils import DownloadUtils
+from .downloadutils import DownloadUtils, save_user_details, load_user_details
 from .simple_logging import SimpleLogging
 from .translation import string_load
 from .utils import datetime_from_string
@@ -23,7 +23,6 @@ log = SimpleLogging(__name__)
 
 __addon__ = xbmcaddon.Addon()
 __addon_name__ = __addon__.getAddonInfo('name')
-downloadUtils = DownloadUtils()
 
 
 def getServerDetails():
@@ -75,18 +74,14 @@ def getServerDetails():
 def checkServer(force=False, change_user=False, notify=False):
     log.debug("checkServer Called")
 
-    # stop any plaback
-    player = xbmc.Player()
-    if player.isPlaying():
-        player.stop()
-
     settings = xbmcaddon.Addon()
     server_url = ""
     something_changed = False
+    du = DownloadUtils()
 
     if force is False:
         # if not forcing use server details from settings
-        svr = downloadUtils.getServer()
+        svr = du.getServer()
         if svr is not None:
             server_url = svr
 
@@ -140,13 +135,19 @@ def checkServer(force=False, change_user=False, notify=False):
                 server_address = url_bits.hostname
                 server_port = str(url_bits.port)
                 server_protocol = url_bits.scheme
+                user_name = url_bits.username
+                user_password = url_bits.password
 
-                temp_url = "%s://%s:%s/emby/Users/Public?format=json" % (server_protocol, server_address, server_port)
+                if user_name and user_password:
+                    temp_url = "%s://%s:%s@%s:%s/emby/Users/Public?format=json" % (server_protocol, user_name, user_password, server_address, server_port)
+                else:
+                    temp_url = "%s://%s:%s/emby/Users/Public?format=json" % (server_protocol, server_address, server_port)
 
+                log.debug("Testing_Url: {0}", temp_url)
                 progress = xbmcgui.DialogProgress()
                 progress.create(__addon_name__ + " : " + string_load(30376))
                 progress.update(0, string_load(30377))
-                json_data = downloadUtils.downloadUrl(temp_url, authenticate=False)
+                json_data = du.downloadUrl(temp_url, authenticate=False)
                 progress.close()
 
                 result = json.loads(json_data)
@@ -169,21 +170,28 @@ def checkServer(force=False, change_user=False, notify=False):
         server_address = url_bits.hostname
         server_port = str(url_bits.port)
         server_protocol = url_bits.scheme
+        user_name = url_bits.username
+        user_password = url_bits.password
         log.debug("Detected server info {0} - {1} - {2}", server_protocol, server_address, server_port)
 
         # save the server info
         settings.setSetting("port", server_port)
+
+        if user_name and user_password:
+            server_address = "%s:%s@%s" % (url_bits.username, url_bits.password, server_address)
+
         settings.setSetting("ipaddress", server_address)
 
         if server_protocol == "https":
-            settings.setSetting("use_https", "true")
+            settings.setSetting("protocol", "1")
         else:
-            settings.setSetting("use_https", "false")
+            settings.setSetting("protocol", "0")
 
         something_changed = True
 
     # do we need to change the user
-    current_username = settings.getSetting("username")
+    user_details = load_user_details(settings)
+    current_username = user_details.get("username", "")
     current_username = unicode(current_username, "utf-8")
 
     # if asked or we have no current user then show user selection screen
@@ -191,10 +199,11 @@ def checkServer(force=False, change_user=False, notify=False):
 
         # stop playback when switching users
         xbmc.Player().stop()
+        du = DownloadUtils()
 
         # get a list of users
         log.debug("Getting user list")
-        json_data = downloadUtils.downloadUrl(server_url + "/emby/Users/Public?format=json", authenticate=False)
+        json_data = du.downloadUrl(server_url + "/emby/Users/Public?format=json", authenticate=False)
 
         log.debug("jsonData: {0}", json_data)
         try:
@@ -242,7 +251,7 @@ def checkServer(force=False, change_user=False, notify=False):
                             log.debug("LastActivityDate: {0}", time_ago)
 
                         user_item = xbmcgui.ListItem(name)
-                        user_image = downloadUtils.get_user_artwork(user, 'Primary')
+                        user_image = du.get_user_artwork(user, 'Primary')
                         if not user_image:
                             user_image = "DefaultUser.png"
                         art = {"Thumb": user_image}
@@ -336,8 +345,8 @@ def checkServer(force=False, change_user=False, notify=False):
                     if saved_password:
                         log.debug("Saving username and password: {0}", selected_user_name)
                         log.debug("Using stored password for user: {0}", hashed_username)
-                        settings.setSetting("username", selected_user_name)
-                        settings.setSetting('password', saved_password)
+                        save_user_details(settings, selected_user_name, saved_password)
+
                     else:
                         kb = xbmc.Keyboard()
                         kb.setHeading(string_load(30006))
@@ -345,8 +354,7 @@ def checkServer(force=False, change_user=False, notify=False):
                         kb.doModal()
                         if kb.isConfirmed():
                             log.debug("Saving username and password: {0}", selected_user_name)
-                            settings.setSetting("username", selected_user_name)
-                            settings.setSetting('password', kb.getText())
+                            save_user_details(settings, selected_user_name, kb.getText())
 
                             # should we save the password
                             if allow_password_saving:
@@ -356,8 +364,7 @@ def checkServer(force=False, change_user=False, notify=False):
                                     settings.setSetting("saved_user_password_" + hashed_username, kb.getText())
                 else:
                     log.debug("Saving username with no password: {0}", selected_user_name)
-                    settings.setSetting("username", selected_user_name)
-                    settings.setSetting('password', '')
+                    save_user_details(settings, selected_user_name, "")
 
         if something_changed:
             home_window = HomeWindow()
@@ -365,8 +372,8 @@ def checkServer(force=False, change_user=False, notify=False):
             home_window.clearProperty("AccessToken")
             home_window.clearProperty("userimage")
             home_window.setProperty("embycon_widget_reload", str(time.time()))
-            download_utils = DownloadUtils()
-            download_utils.authenticate()
-            download_utils.getUserId()
+            du = DownloadUtils()
+            du.authenticate()
+            du.getUserId()
             xbmc.executebuiltin("ActivateWindow(Home)")
             xbmc.executebuiltin("ReloadSkin()")
