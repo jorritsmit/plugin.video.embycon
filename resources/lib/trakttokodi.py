@@ -55,6 +55,7 @@ def get_items(video_type, item_id=None, parent_id=None):
                        '?ParentId=' + str(parent_id) +
                        '&IsVirtualUnAired=false' +
                        '&IsMissing=false' +
+                       '&Recursive=true' +
                        '&Fields=' + str(details_string) +
                        '&format=json')
 
