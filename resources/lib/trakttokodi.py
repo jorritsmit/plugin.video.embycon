@@ -43,7 +43,7 @@ def get_items(video_type, item_id=None, parent_id=None):
     result = dict()
 
     if video_type == 'season':
-        content_url = ('{server}/emby/Shows/' + item_id +
+        content_url = ('{server}/emby/Shows/' + str(item_id) +
                        '/Seasons'
                        '?userId={userid}' +
                        '&Fields=' + details_string +
@@ -51,10 +51,10 @@ def get_items(video_type, item_id=None, parent_id=None):
 
     elif video_type == 'movie' or video_type == 'episode':
         content_url = ('{server}/emby/Users/{userid}/items' +
-                       '?ParentId=' + parent_id +
+                       '?ParentId=' + str(parent_id) +
                        '&IsVirtualUnAired=false' +
                        '&IsMissing=false' +
-                       '&Fields=' + details_string +
+                       '&Fields=' + str(details_string) +
                        '&format=json')
 
     if content_url:
@@ -64,7 +64,7 @@ def get_items(video_type, item_id=None, parent_id=None):
 
 
 def get_item(item_id):
-    result = dataManager.GetContent('{server}/emby/Users/{userid}/Items/' + item_id + '?Fields=ProviderIds&format=json')
+    result = dataManager.GetContent('{server}/emby/Users/{userid}/Items/' + str(item_id) + '?Fields=ProviderIds&format=json')
     return result
 
 
@@ -118,8 +118,12 @@ def get_match(item_type, title, year, imdb_id):
     for item in results:
         name = item.get('Name')
         production_year = item.get('ProductionYear')
-        if (name == title and int(year) == production_year) or (int(year) == production_year):
+        if name is not None and title is not None and year is not None and production_year is not None:
+            if (name == title and int(year) == production_year) or (int(year) == production_year):
+                potential_matches.append(item)
+        else:
             potential_matches.append(item)
+        log.debug('params: {0},{1}, item: {2},{3}', name, year, title, production_year)
 
     log.debug('Potential matches: {0}', potential_matches)
 
@@ -214,7 +218,7 @@ def entry_point(parameters):
             if match:
                 item_id = match.get('ItemId')
                 media_type = 'series'
-                url = ('{server}/emby/Shows/' + item_id +
+                url = ('{server}/emby/Shows/' + str(item_id) +
                        '/Seasons'
                        '?userId={userid}' +
                        '&Fields=' + details_string +
