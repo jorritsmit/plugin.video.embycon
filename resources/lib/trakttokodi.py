@@ -46,6 +46,7 @@ def get_items(video_type, item_id=None, parent_id=None):
         content_url = ('{server}/emby/Shows/' + str(item_id) +
                        '/Seasons'
                        '?userId={userid}' +
+                       '&Recursive=true' +
                        '&Fields=' + details_string +
                        '&format=json')
 
